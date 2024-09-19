@@ -1,0 +1,38 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Giphy Search</h1>
+
+    <app-gif-search (searchResults)="onSearchResults($event)"  (showTrending)="trandingGif()"></app-gif-search>
+
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+    </div>
+
+    <table *ngIf="gifs.length" class="table table-bordered table-striped mt-3">
+        <thead class="thead-dark">
+            <tr>
+                <th>GIF Preview</th>
+                <th>Title</th>
+                <th>Source</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let gif of gifs">
+                <td>
+                    <img
+                        [src]="gif.images.fixed_height_small.url"
+                        alt="GIF Preview"
+                        class="img-thumbnail"
+                    />
+                </td>
+                <td>{{ gif.title || 'No Title' }}</td>
+                <td>
+                    <a [href]="gif.url" target="_blank">View on Giphy</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="!gifs.length && !errorMessage" class="text-center mt-5">
+        <p>No GIFs found. Try searching for something!</p>
+    </div>
+</div>
